@@ -1,107 +1,93 @@
-use employees;
-
-select emp_no, first_name from employees;
-
-select * from employees;
-
-select emp_no, birth_date from employees;
-
-select hire_date from employees;
-
-select emp_no, from_date, to_date from dept_manager;
-
-select * from departments;
-
-insert into employees
-values (1,
-		'2000-01-01',
-		'jaeseop',
-		'kim',
-		'M',
-		now());
-
-select * from employees;
-
-
-insert into departments values ("d010", "Korea IT Department");
-insert into employees values (2,
-							"2002-01-01",
-							"Yeong Hun",
-							"Lee",
-							"M",
-							now());
-insert into dept_emp values (1,
-							"d010",
-							now(),
-							"9999-01-01");
-update employees
-set first_name = '길동'
-where emp_no = 10001;
-
-update employees
-set last_name = '홍',
-	hire_date = now()
-where emp_no = 10001;
-
-select * from employees;
-
-UPDATE departments
-SET dept_name = 'tech sales'
-WHERE dept_name = 'sales';
-
-update employees
-set birth_date = '1977-07-07'
-where last_name = 'Erie';
-
-select * from employees
-where last_name = 'Erie'
-
-delete from employees
-where emp_no = 10005;
-select * from employees;
-
-delete from employees
-where hire_date = '1993-05-12';
-
-select * from employees
-where hire_date = '1993-05-12';
-
-#emp_no = 28847
-delete from employees 
-where emp_no = 28847; 
-select * from employees;
-
-create table test_member(
-	member_id varchar(50)	comment '아이디',
-	member_pwd varchar(255) comment '비밀번호',
-	member_name varchar(50) comment '이름',
-	member_age tinyint	comment '나이',
-	member_in_date datetime comment '가입일'
+CREATE TABLE member_notnull (
+	id varchar(50) NOT NULL,
+	pwd varchar(250) NOT NULL,
+	name varchar(50),
+	age int,
+	in_date datetime
 );
 
-drop table test_member;
+INSERT INTO member_notnull
+values('test', 'qwer1234!', null, null, now());
 
-create table FREE_BOARD(
-	BOARD_NO int comment '게시판 번호',
-	BOARD_TITLE VARCHAR(100) comment '게시판 제목',
-	BOARD_CONTENT TEXT comment '게시판 내용',
-	BOARD_DATE DATETIME comment '게시판 작성일',
-	BOARD_VIEWS INT comment '게시판 조회수'
+INSERT INTO member_notnull(id, pwd, in_date)
+values('test2', 'qwer1234!', now());
+
+SELECT * FROM member_notnull;
+
+#####################################################
+
+CREATE TABLE MEMBER_unique(
+	id varchar(50) NOT NULL UNIQUE,
+	pwd varchar(250) NOT NULL
 );
-drop table FREE_BOARD;
-insert into FREE_BOARD values (1,
-								'날씨가 춥네요',
-								'감기 조심하세요',
-								'2026-01-21',
-								3);
-insert into FREE_BOARD values (2,
-								'오늘 하루도 고생 많으셨습니다.',
-								'잘 쉬고, 내일 만나요.',
-								'2026-01-21',
-								4);
-insert into FREE_BOARD values (3,
-								'취업성공해서 만나요',
-								'노력합시다!',
-								'2026-01-21',
-								5);
-select * from FREE_BOARD;
+
+INSERT INTO member_unique values('test', 'qwer1234!');
+INSERT INTO member_unique values('test', 'qwer1234!');
+
+#############################################################################
+CREATE TABLE member_check(
+	gender varchar(1) check(gender IN('W', 'M'))
+);
+
+INSERT INTO member_check values('W');
+INSERT INTO member_check values('w');
+INSERT INTO member_check values('asdasd');
+
+SELECT * FROM member_check;
+#############################################################################
+CREATE TABLE member_default (
+	id varchar(50),
+	in_date datetime DEFAULT now()
+);
+
+INSERT INTO MEMBER_default(id) values('test');
+INSERT INTO MEMBER_default values('test', null);
+SELECT * FROM member_default;
+
+#############################################################################
+-- auto_increment는 애초에 값이 비었거나, null값일 때 1씩 증가시키며, 값을 넣어줌.
+CREATE TABLE member_pk(
+	memeber_pk_id int PRIMARY KEY auto_increment,
+	id varchar(50)
+);
+
+DROP TABLE member_pk;
+
+INSERT INTO member_pk VALUES (1, 'test');
+INSERT INTO member_pk VALUES (1, 'test');
+INSERT INTO member_pk VALUES (null, 'test');
+
+SELECT * FROM member_pk;
+
+#############################################################################
+
+CREATE TABLE member_primary(
+	member_primary_id int PRIMARY KEY AUTO_INCREMENT,
+	id varchar(50)
+);
+
+CREATE TABLE board_foreign(
+	board_foreign_id int PRIMARY KEY AUTO_INCREMENT,
+	title varchar(300),
+	writer_id int,
+	CONSTRAINT fk_writer FOREIGN KEY (writer_id)
+	REFERENCES member_primary(member_primary_id)
+	ON DELETE CASCADE 
+);
+
+INSERT INTO member_primary(id)
+values('test1'),
+	('test2'),
+	('test3');
+
+SELECT * FROM member_primary;
+
+INSERT INTO board_foreign(title, writer_id) values('게시글 제목!!', 1);
+
+SELECT * FROM board_foreign;
+
+DELETE FROM member_primary
+WHERE member_primary_id = 1;
+SELECT * FROM member_primary;
+
+DROP TABLE board_foreign;
