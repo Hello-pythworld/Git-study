@@ -38,7 +38,7 @@
 	titlel varchar(300) NOT NULL,
 	content text NOT NULL,
 	views int NOT NULL DEFAULT 0,
-	delte_status varchar(1) NOT NULL DEFAULT 'N'
+	delete_status varchar(1) NOT NULL DEFAULT 'N'
 							CHECK (delete_status IN('Y', 'N')),
 	member_id int,
 	CONSTRAINT fk_member_id FOREIGN KEY(member_id)
