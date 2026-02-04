@@ -16,7 +16,8 @@ public class Ex21_Main extends Object{
 		
 		
 		Ex21_1_Child child = new Ex21_1_Child();
-		child.name = "홍길동";
+		child.name = "홍길동"; 
+		
 		child.info();
 		child.childInfo();
 		
