@@ -8,7 +8,7 @@ public class Ex25_Game {
 	
 	public static void startGame() {
 		// Scanner 객체 생성
-		// Warlod 객체 생성
+		// Warlod 객체 생성 new Warlod(ca)
 		// CharacterAbility 객체 생성
 		
 		do { // 게임 시작

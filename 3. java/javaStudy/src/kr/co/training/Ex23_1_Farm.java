@@ -8,5 +8,6 @@ public class Ex23_1_Farm {
 	public void sound(Ex23_1_Animal animal, String sound) {
 		
 		animal.cry(sound);
+		
 	}
 }
