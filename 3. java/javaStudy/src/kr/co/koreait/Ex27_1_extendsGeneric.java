@@ -3,16 +3,16 @@ package kr.co.koreait;
 import java.util.ArrayList;
 
 public class Ex27_1_extendsGeneric {
-
+	
 	public static void main(String[] args) {
-		
-		
+
+
 		Ex27_1_Calc<Integer> calc = new Ex27_1_Calc<>();
 		calc.add(10, 20);
-		
+
 		Ex27_1_Calc<String> calc2 = new Ex27_1_Calc<>();
 		calc2.add("A", "B");
-		
+
 		Ex27_1_Calc2 c = new Ex27_1_Calc2();
 		ArrayList<Integer> list = new ArrayList<>();
 		c.add(list);
