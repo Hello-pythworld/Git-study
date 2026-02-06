@@ -27,7 +27,7 @@ public class Ex30_Main {
                 switch (in) {
                 case "1" -> create(sc, dao);
                 case "2" -> list(dao);
-//                case "3" -> find(sc, dao);
+                case "3" -> find(sc, dao);
                 case "4" -> update(sc, dao);
                 case "5" -> delete(sc, dao);
                 case "0" -> { System.out.println("프로그램이 종료되었습니다."); return; }
@@ -84,6 +84,7 @@ public class Ex30_Main {
 		System.out.println("나이 : " + user.getAge());
 		System.out.println("이메일 : " + user.getEmail());
 	}
+	
 	public static void update(Scanner sc, Ex30_1_UserDao dao) throws SQLException {
 		System.out.println("수정할 아이디 : ");
 		int id = sc.nextInt();
